@@ -4,16 +4,28 @@
 
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Burger = sequelize.define(
-    "Burger",
+  const Burgers = sequelize.define(
+    "Burgers",
     {
-      burger_name: DataTypes.STRING,
-      devoured: { type: DataTypes.BOOLEAN, defaultValue: false }
+      burger_name: { type: DataTypes.STRING },
+      devoured: { type: DataTypes.BOOLEAN, defaultValue: false },
+      createdAt: {
+        type: DataTypes.DATE(3),
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP(3)"),
+        field: "created_at"
+      },
+      updatedAt: {
+        type: DataTypes.DATE(3),
+        defaultValue: sequelize.literal(
+          "CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)"
+        ),
+        field: "updated_at"
+      }
     },
     {}
   );
-  Burger.associate = function(models) {
+  Burgers.associate = function(models) {
     // associations can be defined here
   };
-  return Burger;
+  return Burgers;
 };

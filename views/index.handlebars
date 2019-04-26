@@ -2,17 +2,17 @@
 
 <h2>Burgers Not Eaten:</h2>
 <ul>
-    {{#each burgers}}
+    {{#each burger_name}}
     {{#unless devoured}}
     <li>
-        {{burger_name}}
-        <form action="api/burgers/{{this.id}}?_method=PUT" method="POST">
+        {{this.burger_name}}
+        <form action="api/burgers/update?_method=PUT" method="POST">
             <input type="hidden" name="devoured" value="1">
             <button type="submit">Eat!</button>
         </form>
-        <form action="api/burgers/{{this.id}}?_method=DELETE" method="POST">
+        {{!-- <form action="api/burgers/{{this.id}}?_method=DELETE" method="POST">
             <button type="submit">Delete</button>
-        </form>
+        </form> --}}
     </li>
     {{/unless}}
     {{/each}}
@@ -20,14 +20,14 @@
 
 <h2>Burgers Eaten:</h2>
 <ul>
-    {{#each burgers}}
+    {{#each burger_name}}
     {{#if devoured}}
     <li>
-        {{burger_name}}
-        <form action="api/burgers/{{this.id}}?_method=PUT" method="POST">
+        {{this.burger_name}}
+        {{!-- <form action="api/burgers/{{this.id}}?_method=PUT" method="POST">
             <input type="hidden" name="devoured" value="0">
             <button type="submit">Switch</button>
-        </form>
+        </form> --}}
     </li>
     {{/if}}
     {{/each}}

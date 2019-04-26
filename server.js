@@ -19,5 +19,21 @@ app.engine(
     defaultLayout: "main"
   })
 );
-
 app.set("view engine", "handlebars");
+
+// bring in routes
+var routes = require("./controllers/burgers_controller");
+
+// connect to the routes through the controller
+app.use("/", routes);
+app.use("/api/burgers", routes);
+app.use("/api/update", routes);
+
+model.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
+    model.sequelize.sync();
+    console.log(
+      "Connection successful! Server listening on http://localhost:" + PORT
+    );
+  });
+});
