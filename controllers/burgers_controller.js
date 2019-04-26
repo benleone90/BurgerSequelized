@@ -2,7 +2,7 @@ var express = require("express");
 
 var router = express.Router();
 
-var Burgers = require("../models");
+var Burgers = require("../models/")["Burgers"];
 
 router.get("/", function(req, res) {
   Burgers.findAll({}).then(function(burger_name) {
