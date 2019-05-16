@@ -1,31 +1,24 @@
-// Used npx sequelize model:create --name Burger --attributes burger_name:string,devoured:boolean --force
-// to create burger model and migration file
-// Added defaultValue: false
-
-"use strict";
-module.exports = (sequelize, DataTypes) => {
-  const Burgers = sequelize.define(
-    "Burgers",
+module.exports = function(sequelize, DataTypes) {
+  var Burger = sequelize.define(
+    "Burger",
     {
-      burger_name: { type: DataTypes.STRING },
-      devoured: { type: DataTypes.BOOLEAN, defaultValue: false },
-      createdAt: {
-        type: DataTypes.DATE(3),
-        defaultValue: sequelize.literal("CURRENT_TIMESTAMP(3)"),
-        field: "created_at"
+      burger_name: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
-      updatedAt: {
-        type: DataTypes.DATE(3),
-        defaultValue: sequelize.literal(
-          "CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)"
-        ),
-        field: "updated_at"
+      devoured: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
       }
     },
-    {}
+    {
+      classMethods: {
+        associate: function(models) {
+          Burgers.hasOne(models.Customer);
+        }
+      }
+    }
   );
-  Burgers.associate = function(models) {
-    // associations can be defined here
-  };
-  return Burgers;
+  return Burger;
 };
